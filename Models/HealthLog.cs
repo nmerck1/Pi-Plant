@@ -20,6 +20,5 @@
         }
         public HealthLog() { }
         public int Id { get; set; }
-        public string Status
     }
 }
