@@ -10,7 +10,7 @@ namespace Pi_Plant.Models
         public int PlantId { get; set; }
 
         public string Status { get; set; }
-        public DateTime CreatedData { get; set; }
+        public DateTime LogDate { get; set; }
 
     }
 }
