@@ -15,9 +15,10 @@
 
         // Calculated properties
         public bool IsHealthy =>
-            Temperature >= Plant?.IdealMinTemperature && Temperature <= Plant?.IdealMaxTemperature &&
-            Humidity >= Plant?.IdealMinHumidity && Humidity <= Plant?.IdealMaxHumidity &&
-            SoilMoisture >= Plant?.IdealMinSoilMoisture && SoilMoisture <= Plant?.IdealMaxSoilMoisture &&
-            LightLevel >= Plant?.IdealMinSunLight && LightLevel <= Plant?.IdealMaxSunLight;
+            Plant != null &&
+            Temperature >= Plant.IdealMinTemperature && Temperature <= Plant.IdealMaxTemperature &&
+            Humidity >= Plant.IdealMinHumidity && Humidity <= Plant.IdealMaxHumidity &&
+            SoilMoisture >= Plant.IdealMinSoilMoisture && SoilMoisture <= Plant.IdealMaxSoilMoisture &&
+            LightLevel >= Plant.IdealMinSunLight && LightLevel <= Plant.IdealMaxSunLight;
     }
 }
