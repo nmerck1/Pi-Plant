@@ -15,7 +15,7 @@ Welcome to my little corner of the internet where technology meets botany! This 
 
 ## 🌟 Features That Make Plants Happy
 
-- 📈 **Real-time monitoring** of soil moisture, temperature, and humidity
+- 📈 **Real-time monitoring** of soil moisture, temperature, sunlight, and humidity
 - 📱 **Responsive dashboard** - check on your plants from anywhere in the house
 - 📊 **Historical data tracking** - see how your plants have been doing over time
 - 🚨 **Smart alerts** - get notified when your plants need attention (coming soon!)
@@ -71,7 +71,7 @@ Navigate to `http://localhost:5000` and watch your plant data come alive!
 - [ ] Email/SMS notifications for thirsty plants
 - [ ] Plant care recommendations based on data trends
 - [ ] Support for multiple plant types and custom thresholds
-- [ ] Maybe a cute plant emoji status system? 🌵➡️🌿➡️🌳
+- [ ] Maybe a plant emoji status system? 🌵➡️🌿➡️🌳
 
 ## 🤝 Contributing
 
