@@ -41,7 +41,7 @@ The React app brings the data to life:
 
 ## 🏠 Home Server Hosting
 
-This entire application runs 24/7 on my Raspberry Pi 4 sitting quietly in my living room. No cloud costs, no external dependencies - just pure self-hosted goodness! The Pi serves the React app, handles API requests, and talks to the sensors all while sipping power like a responsible citizen.
+This entire application runs 24/7 on my Raspberry Pi 4 sitting quietly in my office on my bookshelf. No cloud costs, no external dependencies - just pure self-hosted goodness! The Pi serves the React app, handles API requests, and talks to the sensors all while sipping power like a responsible citizen.
 
 **Why Raspberry Pi?**
 - 💰 Cost-effective
