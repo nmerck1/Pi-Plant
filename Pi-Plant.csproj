@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Pi_Plant</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\favicon.ico" />
+    <Content Remove="wwwroot\index.html" />
+    <Content Remove="wwwroot\logo192.png" />
+    <Content Remove="wwwroot\logo512.png" />
+    <Content Remove="wwwroot\robots.txt" />
+    <Content Remove="wwwroot\static\css\main.f855e6bc.css" />
+    <Content Remove="wwwroot\static\css\main.f855e6bc.css.map" />
+    <Content Remove="wwwroot\static\js\453.f0d5fce9.chunk.js" />
+    <Content Remove="wwwroot\static\js\453.f0d5fce9.chunk.js.map" />
+    <Content Remove="wwwroot\static\js\main.3485dc74.js" />
+    <Content Remove="wwwroot\static\js\main.3485dc74.js.LICENSE.txt" />
+    <Content Remove="wwwroot\static\js\main.3485dc74.js.map" />
+    <Content Remove="wwwroot\static\media\logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\favicon.ico" />
+    <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\logo192.png" />
+    <None Include="wwwroot\logo512.png" />
+    <None Include="wwwroot\robots.txt" />
+    <None Include="wwwroot\static\css\main.f855e6bc.css" />
+    <None Include="wwwroot\static\css\main.f855e6bc.css.map" />
+    <None Include="wwwroot\static\js\453.f0d5fce9.chunk.js" />
+    <None Include="wwwroot\static\js\453.f0d5fce9.chunk.js.map" />
+    <None Include="wwwroot\static\js\main.3485dc74.js" />
+    <None Include="wwwroot\static\js\main.3485dc74.js.LICENSE.txt" />
+    <None Include="wwwroot\static\js\main.3485dc74.js.map" />
+    <None Include="wwwroot\static\media\logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\asset-manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

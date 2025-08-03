@@ -1,0 +1,20 @@
+meta {
+  name: SearchPlantName
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/plants/search?token={{TREFLE_TOKEN}}&q=a
+  body: none
+  auth: inherit
+}
+
+params:query {
+  token: {{TREFLE_TOKEN}}
+  q: a
+}
+
+settings {
+  encodeUrl: true
+}
