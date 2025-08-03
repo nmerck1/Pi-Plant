@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Trefle API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
