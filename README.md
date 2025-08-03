@@ -16,7 +16,7 @@ This is a **full-stack plant monitoring system** that runs on my Raspberry Pi ho
 - [ ] Plant care recommendations based on data trends
 - [ ] Support for multiple plant types and custom thresholds
 - [ ] Maybe a plant emoji status system? 🌵➡️🌿➡️🌳
-- [ ] 
+      
 ---
 
 **Made with ❤️ and lots of ☕ on a Raspberry Pi**
