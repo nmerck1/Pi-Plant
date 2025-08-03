@@ -3,11 +3,11 @@
 This is a **full-stack plant monitoring system** that runs on my Raspberry Pi home server. 
 
 **Tech Stack:**
-- 🔧 **Backend**: Go (as a backend API)
-- ⚛️ **Frontend**: React (because who doesn't love components?)
-- 🥧 **Hosting**: Raspberry Pi 4 (my little green server for my green plants!)
-- 📊 **Database**: SQLite (lightweight and Pi-friendly)
-- 🌐 **Deployment**: Self-hosted on my home network
+- **Backend**: Go (as a backend API)
+- **Frontend**: React (because who doesn't love components?)
+- **Hosting**: Raspberry Pi 4 (my little green server for my green plants!)
+- **Database**: SQLite (lightweight and Pi-friendly)
+- **Deployment**: Self-hosted on my home network
 
 ## 🌱 Next Updates
 
