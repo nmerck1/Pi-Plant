@@ -9,7 +9,7 @@ This is a **full-stack plant monitoring system** that runs on my Raspberry Pi ho
 - **Database**: SQLite (lightweight and Pi-friendly)
 - **Deployment**: Self-hosted on my raspberry pi home server
 
-## 🌱 Next Updates
+## Next Updates
 
 - [ ] Mobile app for on-the-go plant checking
 - [ ] Email/SMS notifications for thirsty plants
