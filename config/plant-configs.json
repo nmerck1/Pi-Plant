@@ -1,0 +1,49 @@
+{
+  "plantConfigs": {
+    "string-of-turtles": {
+      "name": "String of Turtles",
+      "scientificName": "Peperomia prostrata",
+      "lightLevelMin": 1000,
+      "lightLevelMax": 15000,
+      "temperatureMin": 50,
+      "temperatureMax": 85,
+      "humidityMin": 30,
+      "humidityMax": 70,
+      "soilMoistureMin": 30,
+      "soilMoistureMax": 70,
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "growLightLux": 5700
+    },
+    "snake-plant": {
+      "name": "Snake Plant",
+      "scientificName": "Sansevieria trifasciata",
+      "lightLevelMin": 200,
+      "lightLevelMax": 10000,
+      "temperatureMin": 60,
+      "temperatureMax": 85,
+      "humidityMin": 20,
+      "humidityMax": 60,
+      "soilMoistureMin": 20,
+      "soilMoistureMax": 50,
+      "phMin": 6.0,
+      "phMax": 7.0,
+      "growLightLux": 5700
+    },
+    "pothos": {
+      "name": "Golden Pothos",
+      "scientificName": "Epipremnum aureum",
+      "lightLevelMin": 1500,
+      "lightLevelMax": 20000,
+      "temperatureMin": 65,
+      "temperatureMax": 85,
+      "humidityMin": 40,
+      "humidityMax": 70,
+      "soilMoistureMin": 40,
+      "soilMoistureMax": 80,
+      "phMin": 6.1,
+      "phMax": 6.5,
+      "growLightLux": 5700
+    }
+  }
+}
