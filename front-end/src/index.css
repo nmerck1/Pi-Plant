@@ -44,7 +44,7 @@ button {
 }
 
 button:hover {
-  background-color: rgb(55 65 81); /* gray-700 */
+  /* background-color: rgb(55 65 81);*/ /* gray-700 */
 }
 
 /* Links */

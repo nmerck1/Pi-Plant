@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from "react";
 
 // Define types for better TypeScript support
 type PlantStatus = 'healthy' | 'warning' | 'critical';
@@ -95,6 +95,28 @@ function App() {
     // Implement delete functionality
   };
 
+  const [isToggled, setIsToggled] = useState(false);
+
+  // Function to read actual light sensor (placeholder for now)
+  const readLightSensor = (plantId: number): number => {
+    // TODO: Implement actual sensor reading logic here
+    // This will make an API call to Pi server
+    console.log(`Reading light sensor for plant ${plantId}`);
+    
+    // For now, return the mock data
+    const plant = plants.find(p => p.id === plantId);
+    return plant?.sensorData.lightLevel || 0;
+  };
+
+  // Get the light level to display based on grow light status
+  const getDisplayedLightLevel = (plantId: number): number => {
+    if (isToggled) {
+      return 5700; // Constant value when grow light is on
+    } else {
+      return readLightSensor(plantId); // Read actual sensor when grow light is off
+    }
+  };
+
   return (
     <div>
       <div className="min-h-screen bg-gray-900 p-6">
@@ -153,37 +175,45 @@ function App() {
                       </p>
                       <p className="text-gray-500 text-xs mt-1">{plant.temperatureMin}-{plant.temperatureMax}°F</p>
                     </div>
-
-                    <div className="bg-gray-800 p-3 rounded border border-gray-600">
-                      <h4 className="text-gray-400 text-xs mb-1">HUMIDITY</h4>
-                      <p className={`text-lg font-bold ${getSensorStatus(plant.sensorData.humidity, plant.humidityMin, plant.humidityMax)}`}>
-                        {plant.sensorData.humidity}%
-                      </p>
-                      <p className="text-gray-500 text-xs mt-1">{plant.humidityMin}-{plant.humidityMax}%</p>
-                    </div>
-
-                    <div className="bg-gray-800 p-3 rounded border border-gray-600">
-                      <h4 className="text-gray-400 text-xs mb-1">LIGHT LEVEL</h4>
-                      <p className={`text-lg font-bold ${getSensorStatus(plant.sensorData.lightLevel, plant.lightLevelMin, plant.lightLevelMax)}`}>
-                        {plant.sensorData.lightLevel}
-                      </p>
-                      <p className="text-gray-500 text-xs mt-1">lux</p>
-                    </div>
                   </div>
 
-                  {/* pH as a single row item */}
-                  { /*
-                  <div className="bg-gray-800 p-3 rounded border border-gray-600">
-                    <h4 className="text-gray-400 text-xs mb-1">SOIL pH</h4>
-                    <div className="flex justify-between items-center">
-                      <p className={`text-lg font-bold ${getSensorStatus(plant.sensorData.ph, 6.0, 7.5)}`}>
-                        {plant.sensorData.ph}
-                      </p>
-                      <p className="text-gray-500 text-xs">Optimal: 6.0-7.5</p>
+                  {/* Light level with toggle */}
+                  <div className="bg-gray-800 p-3 rounded border border-gray-600 mb-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <div className="flex-1">
+                        <h4 className="text-gray-400 text-xs mb-1">LIGHT LEVEL</h4>
+                        <p className={`text-lg font-bold ${getSensorStatus(getDisplayedLightLevel(plant.id), plant.lightLevelMin, plant.lightLevelMax)}`}>
+                          {getDisplayedLightLevel(plant.id)} 
+                        </p>
+                        <p className="text-gray-500 text-xs mt-1">lux</p>
+                      </div>
+                      
+                      {/* Toggle Button - aligned with light level data */}
+                      <div className="flex flex-col items-end">
+                        <span className="text-gray-400 text-xs mb-1">GROW LIGHT</span>
+                        <button
+                          onClick={() => setIsToggled(!isToggled)}
+                          className={`
+                            relative inline-flex h-6 w-11 items-center rounded-full
+                            transition-colors duration-300
+                            ${isToggled ? 'bg-green-500' : 'bg-gray-600'}
+                          `}
+                        >
+                          <span
+                            className={`
+                              inline-block h-4 w-4 transform rounded-full bg-white shadow-lg
+                              transition-transform duration-300 ease-in-out
+                              ${isToggled ? 'translate-x-6' : 'translate-x-1'}
+                            `}
+                          />
+                        </button>
+                        <span className={`text-xs mt-1 font-medium ${isToggled ? 'text-green-400' : 'text-gray-500'}`}>
+                          {isToggled ? 'ON' : 'OFF'}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  */
-                  }
+                  
                   {/* Individual plant action buttons */}
                   <div className="flex gap-2 mt-4">
                     <button 
