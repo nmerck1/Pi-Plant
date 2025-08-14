@@ -9,10 +9,12 @@ import (
     
     "github.com/gorilla/mux"
     "pi-plant-backend/database"
+    "pi-plant-backend/services"
 )
 
 type Server struct {
     db *database.DB
+    sensorService *services.SensorService
 }
 
 func main() {
@@ -28,7 +30,8 @@ func main() {
         log.Fatal("Failed to initialize database schema:", err)
     }
     
-    server := &Server{db: db}
+    sensorService := services.NewSensorService()
+    server := &Server{db: db, sensorService: sensorService}
     
     // Setup routes
     r := mux.NewRouter()
@@ -41,6 +44,11 @@ func main() {
     r.HandleFunc("/api/plants/{id}/sensors", server.handleAddSensorReading).Methods("POST")
     r.HandleFunc("/api/plants/{id}/sensors", server.handleGetSensorReadings).Methods("GET")
     r.HandleFunc("/api/plants/{id}/health", server.handleGetPlantHealth).Methods("GET")
+    
+    // New sensor reading routes
+    r.HandleFunc("/api/plants/{id}/read-sensors", server.handleReadSensors).Methods("POST")
+    r.HandleFunc("/api/sensors/status", server.handleGetSensorStatus).Methods("GET")
+    r.HandleFunc("/api/sensors/test/{sensor}", server.handleTestSensor).Methods("GET")
     
     // Watering routes
     r.HandleFunc("/api/plants/{id}/water", server.handleLogWatering).Methods("POST")
@@ -206,4 +214,103 @@ func (s *Server) handleLogWatering(w http.ResponseWriter, r *http.Request) {
     
     w.WriteHeader(http.StatusCreated)
     json.NewEncoder(w).Encode(map[string]string{"status": "watering logged"})
+}
+
+// New sensor reading handlers
+func (s *Server) handleReadSensors(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
+    plantID, err := strconv.Atoi(vars["id"])
+    if err != nil {
+        http.Error(w, "Invalid plant ID", http.StatusBadRequest)
+        return
+    }
+    
+    // Read all sensors
+    readings, err := s.sensorService.ReadAllSensors()
+    if err != nil {
+        http.Error(w, "Failed to read sensors: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
+    
+    // Convert to database format
+    dbData := s.sensorService.ConvertToDatabaseFormat(plantID, readings)
+    
+    // Create sensor reading for database
+    var reading database.SensorReading
+    if temp, ok := dbData["temperature"].(float64); ok {
+        reading.Temperature = &temp
+    }
+    if humidity, ok := dbData["humidity"].(float64); ok {
+        reading.Humidity = &humidity
+    }
+    if moisture, ok := dbData["soil_moisture"].(float64); ok {
+        reading.SoilMoisture = &moisture
+    }
+    if light, ok := dbData["light_level"].(float64); ok {
+        reading.LightLevel = &light
+    }
+    
+    reading.PlantID = plantID
+    reading.RecordedAt = time.Now()
+    
+    // Save to database
+    if err := s.db.AddSensorReading(reading); err != nil {
+        http.Error(w, "Failed to save sensor reading: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
+    
+    // Return the readings
+    response := map[string]interface{}{
+        "plant_id": plantID,
+        "readings": readings,
+        "saved_to_db": true,
+        "timestamp": time.Now(),
+    }
+    
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(http.StatusCreated)
+    json.NewEncoder(w).Encode(response)
+}
+
+func (s *Server) handleGetSensorStatus(w http.ResponseWriter, r *http.Request) {
+    status := s.sensorService.GetSensorStatus()
+    
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(map[string]interface{}{
+        "sensor_status": status,
+        "timestamp": time.Now(),
+    })
+}
+
+func (s *Server) handleTestSensor(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
+    sensorName := vars["sensor"]
+    
+    // Map sensor names to script names
+    sensorScripts := map[string]string{
+        "light": "light_sensor.py",
+        "temperature": "temperature_sensor.py",
+        "soil-moisture": "soil_moisture_sensor.py",
+        "humidity": "humidity_sensor.py",
+    }
+    
+    scriptName, exists := sensorScripts[sensorName]
+    if !exists {
+        http.Error(w, "Invalid sensor type", http.StatusBadRequest)
+        return
+    }
+    
+    // Test the sensor
+    readings, err := s.sensorService.TestSensorScript(scriptName)
+    if err != nil {
+        http.Error(w, "Failed to test sensor: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
+    
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(map[string]interface{}{
+        "sensor": sensorName,
+        "test_readings": readings,
+        "timestamp": time.Now(),
+    })
 }
